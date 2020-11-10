@@ -44,6 +44,15 @@ def do_admin_login():
             return home()
 
 
+@app.route('/hello')
+def say_hi_natali():
+    return 'Hello Natali!'
+
+@app.route('/hi')
+def say_hi_dime():
+    return 'Hello Dima'
+
+
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
     app.run(debug=True,host='127.0.0.1', port=5000)
