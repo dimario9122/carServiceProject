@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}
+    {% endblock %}
+</head>
+
+<body>
+<p>
+    <a href={{ url_for('home') }}>Домашняя страница</a>
+</p>
+
+<p>
+    {% block content %}
+    {% endblock %}
+</p>
+
+</body>
+</html>

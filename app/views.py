@@ -6,7 +6,7 @@ from app import app
 
 @app.route('/')
 def index():
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 
 @app.route('/home')

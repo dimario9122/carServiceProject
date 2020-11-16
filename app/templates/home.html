@@ -1,10 +1,22 @@
+{%  extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% block title %}
     <title>Home</title>
+    {% endblock %}
 </head>
+
 <body>
+{% block content %}
+    <p>
+    <form action="{{ url_for('login') }}" method="GET">
+        <button type="submit">Вход</button>
+    </form>
+    </p>
 This is home page
+{% endblock %}
 </body>
 </html>
