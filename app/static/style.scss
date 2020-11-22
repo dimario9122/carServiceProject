@@ -1,0 +1,70 @@
+$red : #F70D0D;
+
+html {
+  height: 100%;
+}
+
+body {
+  background: url("../image/main-bg.jpg") no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.button-wrap {
+  display: flex;
+  max-width: 100%;
+  justify-content: flex-end;
+  .btnSignIn {
+    margin-top: 20px;
+    margin-right: 15px;
+    width: 198px;
+    height: 53px;
+    background: $red;
+    border-radius: 10px;
+    border-width: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 24px;
+    color: #FFFFFF;
+  }
+  .btnSignIn:hover {
+    cursor: pointer;
+  }
+}
+
+.content-wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+    &-header {
+      h1 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        font-size: 85px;
+        color: #FFFFFF;
+      }
+    }
+    &-btn {
+      &__recording {
+        width: 295px;
+        height: 63px;
+        background: $red;
+        border-width: 0px;
+        font-weight: 700;
+        font-size: 24px;
+        color: #FFFFFF;
+
+      }
+      &__recording {
+        cursor: pointer;
+      }
+    }
+  }
+}
