@@ -210,4 +210,8 @@ body {
   opacity: 1;
 }
 
+.errorSignIn {
+  color: red;
+}
+
 /*# sourceMappingURL=style.css.map */

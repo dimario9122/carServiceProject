@@ -12,8 +12,10 @@ window.onload =  function() {
 
 if (document.querySelector('.popup').classList.contains('open'))
 {
-    document.querySelector('.tab-client').classList.remove('active')
-    document.querySelector('.tab-manager').classList.add('active')
+    if (document.querySelector('.popup_tabs')) {
+        document.querySelector('.tab-client').classList.remove('active')
+        document.querySelector('.tab-manager').classList.add('active')
+    }
     document.querySelector('.popup-close').addEventListener('click', closePopup)
     document.querySelector('.tab-client').addEventListener('click', resetPopup('clickClient'))
     document.querySelector('.popup').addEventListener('click', function(e) {
