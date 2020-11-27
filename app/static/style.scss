@@ -176,12 +176,14 @@ body {
       }
     }
   }
+  &_label {
+    margin-top: 30px;
+  }
   &-input {
     width: 360px;
     height: 35px;
     border: 1px solid #F70D0D;
     border-radius: 20px;
-    margin-bottom: 20px;
     padding: 2px 15px;
     &:focus {
       outline: none;
@@ -202,6 +204,7 @@ body {
     font-size: 18px;
     font-weight: 700;
     color: #FFFFFF;
+    margin-top: 20px;
     &:hover {
       cursor: pointer;
     }
