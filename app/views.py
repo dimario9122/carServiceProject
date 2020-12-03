@@ -1,6 +1,7 @@
 from flask import render_template, url_for, redirect, request, jsonify
 import sqlite3
 import os
+import random
 from app import app
 
 
@@ -9,9 +10,68 @@ def index():
     return redirect(url_for('home'))
 
 
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        if request.form.get('button')=='do record':
+            return redirect(url_for('record'))
     return render_template('home.html')
+
+
+@app.route('/record', methods=['GET', 'POST'])
+def record():
+    if request.method=='GET':
+        '''
+            запрос данных из базы данных
+            '''
+        # получение абсолютного пути к файлу базы данных
+        path_to_db_file = os.path.abspath('.')
+        path_to_db_file += '/app/database.db'
+        connect_db = sqlite3.connect(path_to_db_file)
+        cursor = connect_db.cursor()
+        # запрос всех марок авто
+        query = "SELECT Trademark FROM car GROUP BY Trademark"
+        cursor.execute(query)
+        data_from_db = cursor.fetchall()
+        trademark_list = [x[0] for x in data_from_db]
+        #есть ли смысл в этом месте???
+        payload = {
+            'trademark_name': trademark_list[0]
+        }
+        # запрос моделей определенной марки
+        query = "SELECT Model FROM car WHERE Trademark='{0}'".format(payload['trademark_name'])
+
+        cursor.execute(query)
+        data_from_db = cursor.fetchall()
+        model_list = [x[0] for x in data_from_db]
+        #запрос списка услуг
+        query = "SELECT About FROM service"
+        cursor.execute(query)
+        data_from_db = cursor.fetchall()
+        about_list = [x[0] for x in data_from_db]
+
+        connect_db.close()
+        '''
+        запрос пароля из базы данных выполнен
+        '''
+        return render_template('record.html',message=request.args.get('Trademark'),
+                               trademark_list=trademark_list,model_list=model_list, about_list=about_list)
+    if request.method=='POST':
+        if request.form.get('button')=='go to check':
+            return redirect(url_for('check'))
+    return render_template('record.html')
+
+
+SMS_check = random.randint(1000, 9999)
+@app.route('/check', methods=['GET','POST'])
+def check():
+    error='Неверный код!!!'
+    if request.method == 'POST':
+        if request.form.get('code') == str(SMS_check):
+            return render_template('check.html',message=SMS_check, error='OK!')
+        else:
+            return render_template('check.html', message=SMS_check, error=error)
+    return render_template('check.html',message=SMS_check)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -90,3 +150,4 @@ def change_password():
         конец записи нового пароля в бд
         '''
     return render_template('change_password.html', username=username, status=status)
+

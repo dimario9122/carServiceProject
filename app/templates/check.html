@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block title %}
+    <title>Запись в автосервис</title>
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+    {{ status }}
+    <form action="" method="post">
+        <p>{{ message }}</p>
+		
+    Введите код из СМС:
+        <p>
+            <input type="text" name="code" value={{ phone_code }}>
+        </p>
+		
+        <p>{{ error }}</p
+		
+		<p>
+		<button class="content-btn__recording" name="button" value="order">Заказать</button>
+        </p>
+        <p>
+		<button class="content-btn__recording" name="button" value="order by manager">Заказать через менеджера</button>
+        </p>
+		<p>
+		   С вами свяжется менеджер для уточнения заказа
+		</p>
+    </form>
+
+
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block title %}
+    <title>Запись в автосервис</title>
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+    {{ status }}
+    <form action="" method="post">
+	    Введите номер телефона:
+        <p>
+            <input type="text" name="phone number" value={{ phone_number }}>
+        </p>
+        Выберите марку авто:
+        <p>
+		    <select name = "Trademark">
+			{% for i in range(trademark_list | length) %}
+			   <option name={{ trademark_list[i] }}>{{trademark_list[i] }}</option>
+			{% endfor %}
+			</select>
+        </p>
+		
+		Выберите модель авто:
+        <p>
+            <select name = "Model">
+			{% for i in range(model_list | length) %}
+			   <option name="{{ model_list[i] }}">{{ model_list[i] }}</option>
+			{% endfor %}
+			</select>
+        </p>
+		
+		Выберите тип услуги:
+        <p>
+		    <select name = "About">
+			{% for i in range(about_list | length) %}
+			   <option name="{{ about_list[i] }}">{{ about_list[i] }}</option>
+			{% endfor %}
+			</select>
+
+        </p>
+		
+		
+		Приблизительная стоимость:		
+        <p>
+            <label for="password">Приблизительная стоимость:</label>
+        </p>
+		
+		    {% if message %}
+        <p>{{ message }}</p>
+            {% endif %}
+
+		
+        <p>
+		    <button name="button" value="go to check">Продолжить</button>
+        </p>
+    </form>
+
+    {% if password_changed %}
+        <p>{{ message }}</p>
+    {%  endif %}
+
+{% endblock %}
+</body>
+</html>
