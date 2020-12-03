@@ -1,29 +1,53 @@
 {% extends 'base.html' %}
 
-<head>
-    {% block title %}
-    <title>Login</title>
-    {% endblock %}
-</head>
-<body>
-{% block content %}
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
-
-    <form action="" method="post">
-        <p>
-            <label for="username">Username</label>
-	        <input type="text" name="username">
-        </p>
-        <p>
-            <label for="password">Password</label>
-            <input type="password" name="password">
-        </p>
-        <p>
-            <input type="submit">
-        </p>
-    </form>
+{% block title %}
+<title>Home</title>
 {% endblock %}
-</body>
-</html>
+
+{% block btn %}
+<!--<form action="{{ url_for('login') }}" method="GET">-->
+<div class="button-wrap">
+    <button class="btnSignIn">Вход</button>
+</div>
+<!-- </form>-->
+{% endblock %}
+
+{% block content %}
+<div class="content-wrap">
+    <div class="content">
+        <div class="content-header">
+            <h1>Качетсвенный <br>
+                ремонт авто</h1>
+        </div>
+        <div class="content-btn">
+            <button class="content-btn__recording">Записаться</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block popup %}
+<div class="popup open">
+    <div class="popup_body">
+        <div class="popup_content">
+            <form action="login" method="POST">
+                <p class="popup-close"></p>
+                <div class="popup_tabs">
+                    <p class="tab-client active">Клиент</p>
+                    <p class="tab-manager">Менеджер</p>
+                </div>
+                {% if message %}
+                    <p class="errorSignIn">{{message}}</p>
+                {% endif %}
+                <p class="popup_label">Введите логин:</p>
+                <input type="text" class="popup-input" name="username">
+                <p class="popup_label">Введите пароль:</p>
+                <input type="password" class="popup-input" name="password">
+                <div class="btn-wrap">
+                    <button class="popup-button" type="submit">Продолжить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
