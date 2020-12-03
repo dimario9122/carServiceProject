@@ -13,14 +13,14 @@ def index():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        if request.form.get('button')=='do record':
+        if request.form.get('button') == 'do record':
             return redirect(url_for('record'))
     return render_template('home.html')
 
 
 @app.route('/record', methods=['GET', 'POST'])
 def record():
-    if request.method=='GET':
+    if request.method == 'GET':
         '''
             запрос данных из базы данных
             '''
@@ -34,7 +34,7 @@ def record():
         cursor.execute(query)
         data_from_db = cursor.fetchall()
         trademark_list = [x[0] for x in data_from_db]
-        #есть ли смысл в этом месте???
+        # есть ли смысл в этом месте???
         payload = {
             'trademark_name': trademark_list[0]
         }
@@ -44,7 +44,7 @@ def record():
         cursor.execute(query)
         data_from_db = cursor.fetchall()
         model_list = [x[0] for x in data_from_db]
-        #запрос списка услуг
+        # запрос списка услуг
         query = "SELECT About FROM service"
         cursor.execute(query)
         data_from_db = cursor.fetchall()
@@ -54,24 +54,32 @@ def record():
         '''
         запрос пароля из базы данных выполнен
         '''
-        return render_template('record.html',message=request.args.get('Trademark'),
-                               trademark_list=trademark_list,model_list=model_list, about_list=about_list)
-    if request.method=='POST':
-        if request.form.get('button')=='go to check':
+        return render_template('record.html', message=request.args.get('Trademark'),
+                               trademark_list=trademark_list, model_list=model_list, about_list=about_list)
+    if request.method == 'POST':
+        if request.form.get('button') == 'go to check':
             return redirect(url_for('check'))
     return render_template('record.html')
 
 
-SMS_check = random.randint(1000, 9999)
-@app.route('/check', methods=['GET','POST'])
+@app.route('/check', methods=['GET', 'POST'])
 def check():
-    error='Неверный код!!!'
     if request.method == 'POST':
-        if request.form.get('code') == str(SMS_check):
-            return render_template('check.html',message=SMS_check, error='OK!')
+        if request.form.get('code') == str(sms_code):
+            update_sms_code()
+            return render_template('check.html', message=sms_code, error='OK!')
         else:
-            return render_template('check.html', message=SMS_check, error=error)
-    return render_template('check.html',message=SMS_check)
+            return render_template('check.html', message=sms_code, error='Неверный код!')
+    elif request.method == 'GET':
+        update_sms_code()
+        return render_template('check.html', message=sms_code)
+
+
+sms_code = 0
+def update_sms_code():
+    global sms_code
+    sms_code = random.randint(1000, 9999)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -151,3 +159,13 @@ def change_password():
         '''
     return render_template('change_password.html', username=username, status=status)
 
+
+'''
+    На Home - жимаем вход - клиент -вводим номер телефона
+    нажимаем продолжить и попадаем в /login_client маршрут
+'''
+
+
+@app.route('/login_client', methods=['POST'])
+def login_client():
+    return redirect(url_for('check'))

@@ -56,16 +56,18 @@ function resetPopup(str) {
             let popup = document.querySelector('.popup_content')
             popup.innerHTML = ''
             popup.insertAdjacentHTML('beforeend', `
-             <p class="popup-close"></p>
-            <div class="popup_tabs">
-                <p class="tab-client active">Клиент</p>
-                <p class="tab-manager">Менеджер</p>
-            </div>
-            <p class="popup_label">Введите номер телефона:</p>
-            <input type="text" class="popup-input" id="phone" placeholder="+7 (___) ___-__-__">
-            <div class="btn-wrap">
-                <button class="popup-button">Продолжить</button>
-            </div>
+            <form action="login_client" method="POST">
+                <p class="popup-close"></p>
+                <div class="popup_tabs">
+                    <p class="tab-client active">Клиент</p>
+                    <p class="tab-manager">Менеджер</p>
+                </div>
+                <p class="popup_label">Введите номер телефона:</p>
+                <input type="text" class="popup-input" id="phone" placeholder="+7 (___) ___-__-__">
+                <div class="btn-wrap">
+                    <button class="popup-button">Продолжить</button>
+                </div>
+            </form>
             `)
             document.querySelector('.tab-manager').classList.remove('active')
             document.querySelector('.tab-client').classList.add('active')
