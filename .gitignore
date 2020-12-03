@@ -156,6 +156,7 @@ dmypy.json
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea
 
 # Generated files
 .idea/**/contentModel.xml
@@ -310,4 +311,5 @@ fabric.properties
 
 # profiling data
 
+*.pyc
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,python,flask
