@@ -63,9 +63,9 @@ function resetPopup(str) {
                     <p class="tab-manager">Менеджер</p>
                 </div>
                 <p class="popup_label">Введите номер телефона:</p>
-                <input type="text" class="popup-input" id="phone" placeholder="+7 (___) ___-__-__">
+                <input type="text" class="popup-input" id="phone" name="phone_number" placeholder="+7 (___) ___-__-__">
                 <div class="btn-wrap">
-                    <button class="popup-button">Продолжить</button>
+                    <button class="popup-button" type="submit">Продолжить</button>
                 </div>
             </form>
             `)

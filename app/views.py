@@ -18,8 +18,38 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/record', methods=['GET', 'POST'])
-def record():
+@app.route('/amount', methods=['GET', 'POST'])
+def amount():
+    '''
+    Получение марки, модели авто
+    и услуги выбранной пользователем
+
+    Расчет сроков и стоимости
+    Вывод пользователю на экран
+
+    Кнопки Заказ. заказ через менеджера. Отмена
+
+    Если заказ -
+    дальше идем на страницу с вводом номера телефона, код, лк
+    '''
+    pass
+
+
+@app.route('/new_record', methods=['GET'])
+def new_record():
+    '''
+    Всю логику оформления полей из record
+    поле марка авто
+    поле модель авто
+    поле тип услуги
+
+    кнопка продолжить - amount
+    '''
+    return render_template('record.html')
+
+
+@app.route('/record/<number>', methods=['GET', 'POST'])
+def record(number):
     if request.method == 'GET':
         '''
             запрос данных из базы данных
@@ -62,11 +92,13 @@ def record():
     return render_template('record.html')
 
 
-@app.route('/check', methods=['GET', 'POST'])
-def check():
+@app.route('/check/<number>', methods=['GET', 'POST'])
+def check(number):
+    print(number)
     if request.method == 'POST':
         if request.form.get('code') == str(sms_code):
             update_sms_code()
+            # здесь будет перенаправление в личный кабинет
             return render_template('check.html', message=sms_code, error='OK!')
         else:
             return render_template('check.html', message=sms_code, error='Неверный код!')
@@ -168,4 +200,7 @@ def change_password():
 
 @app.route('/login_client', methods=['POST'])
 def login_client():
-    return redirect(url_for('check'))
+    if request.method == 'POST':
+        number = request.form.get('phone_number')
+        return redirect(url_for('check', number=number))
+    return render_template('home.html')
