@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block title %}
+    <title>Запись в автосервис</title>
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+    {{ status }}
+    <form action="" method="post">
+	    Ваш номер телефона:
+		
+		<p>
+		
+		    {% if phone_number %}
+		<p><input name = "phone_number" value="{{ phone_number }}" readonly></p>
+            {% endif %}
+			
+			<p>
+			
+        Марка Вашего авто:
+		
+		<p>
+		
+		    {% if Trademark %}
+		<p><input name = "Trademark" value="{{ Trademark }}" readonly></p>
+            {% endif %}
+		
+		<p>
+	
+		Модель Вашего авто:
+		
+		<p>
+		
+		    {% if Model %}
+        <p><input name = "Model" value="{{ Model }}" readonly></p>
+            {% endif %}
+		
+		<p>
+		
+		Тип услуги, выбранной Вами:
+		
+		<p>
+		
+ 		    {% if About %}
+        <p><input name = "About" value="{{ About }}" readonly></p>
+            {% endif %}
+		
+		<p>
+		
+		Приблизительная стоимость:		
+		
+		<p>
+		
+		    {% if cost %}
+        <p><input name = "cost" value="{{ cost }}" readonly></p>
+            {% endif %}
+			
+				
+		Приблизительное время выполнения работ:		
+		
+		<p>
+		
+		    {% if time %}
+        <p><input name = "time" value="{{ time }}" readonly></input></p>
+            {% endif %}
+
+		<br>
+		
+		    <button name="button" value="go to check">Оформить заказ</button>
+        </p>
+		
+		<p>
+		    <button name="button" value="go to check">Оформить заказ через менеджера</button>
+        </p>
+		
+		<p>
+		    <button name="button" value="go to home">Отмена</button>
+        </p>
+    </form>
+
+
+
+{% endblock %}
+</body>
+</html>

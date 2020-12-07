@@ -12,22 +12,13 @@
     <form action="" method="post">
 	    Введите номер телефона:
         <p>
-            <input type="text" name="phone number" value={{ phone_number }}>
+            <input name="phone_number" type="tel" pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$" value="+7">
         </p>
-        Выберите марку авто:
+        Выберите марку и модель авто:
         <p>
 		    <select name = "Trademark">
 			{% for i in range(trademark_list | length) %}
 			   <option name={{ trademark_list[i] }}>{{trademark_list[i] }}</option>
-			{% endfor %}
-			</select>
-        </p>
-		
-		Выберите модель авто:
-        <p>
-            <select name = "Model">
-			{% for i in range(model_list | length) %}
-			   <option name="{{ model_list[i] }}">{{ model_list[i] }}</option>
 			{% endfor %}
 			</select>
         </p>
@@ -41,20 +32,9 @@
 			</select>
 
         </p>
-		
-		
-		Приблизительная стоимость:		
+				
         <p>
-            <label for="password">Приблизительная стоимость:</label>
-        </p>
-		
-		    {% if message %}
-        <p>{{ message }}</p>
-            {% endif %}
-
-		
-        <p>
-		    <button name="button" value="go to check">Продолжить</button>
+		    <button name="button" value="go to amount">Продолжить</button>
         </p>
     </form>
 
