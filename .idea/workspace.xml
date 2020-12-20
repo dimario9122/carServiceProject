@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="68c1175a-e4ce-44fe-8305-fea3b36afe81" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/change_password.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/change_password.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/login_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/login_manager.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +40,7 @@
       <workItem from="1606071622242" duration="6866000" />
       <workItem from="1606248546734" duration="8610000" />
       <workItem from="1606296667897" duration="865000" />
-      <workItem from="1606479966269" duration="8416000" />
+      <workItem from="1606479966269" duration="8556000" />
     </task>
     <servers />
   </component>
@@ -64,10 +56,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="628" y="297" key="EditFileWatcherDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606071712863" />
-    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1606296703208">
+    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1606496966388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="739" y="274" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1606296703208" />
+    <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606496966388" />
     <state x="460" y="164" key="SettingsEditor" timestamp="1606071713844">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
