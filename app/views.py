@@ -55,6 +55,7 @@ def new_record():
                         Model=trademark_and_model[1], About=request.form.get('About')))
     return render_template('record.html')
 
+
 def connect_to_db():
     # подключение к базе данных
     path_to_db_file = os.path.abspath('.')
@@ -63,22 +64,23 @@ def connect_to_db():
     return connect_db
 
 
-def get_cost_plane_date(Trademark, Model, About):
+def get_cost_plane_date(trademark, model, about):
     cursor = connect_to_db().cursor()
 
     # получить car_id по Trademark, Model
     # из таблицы car
-    query = "SELECT car_id FROM car WHERE Trademark='{0}' AND Model='{1}'".format(Trademark, Model)
+    query = "SELECT car_id FROM car WHERE Trademark='{0}' AND Model='{1}'".format(trademark, model)
     car_id = cursor.execute(query).fetchone()[0]
 
     # получить service_id по About
     # из таблицы service
-    query = "SELECT service_id FROM service WHERE About='{0}'".format(About)
+    query = "SELECT service_id FROM service WHERE About='{0}'".format(about)
     service_id = cursor.execute(query).fetchone()[0]
 
     # получить cost, PlaneTime по car_id и service_id
     # из таблицы service_car
-    query = "SELECT cost, planetime, service_car_id FROM service_car WHERE service_id='{0}' AND car_id='{1}'".format(service_id, car_id)
+    query = "SELECT cost, planetime, service_car_id FROM service_car WHERE service_id='{0}' AND car_id='{1}'".format(
+        service_id, car_id)
     cost, plane_time, service_car_id = cursor.execute(query).fetchone()
     return cost, plane_time, service_car_id
 
@@ -124,18 +126,18 @@ def amount():
             client_id = cursor.execute(query).fetchone()[0]
 
         # получить id из таблицы Статус
-        status_id = 3 # значение по-умолчанию (Отмена)
+        status_id = 3  # значение по-умолчанию (Отмена)
         if request.form.get('button') == 'order':
             status_id = cursor.execute("SELECT status_id FROM status WHERE name='Принято'").fetchone()[0]
         elif request.form.get('button') == 'order_manager':
-            status_id = cursor.execute("SELECT status_id FROM status WHERE name='Отредактировано менеджером'").fetchone()[0]
+            status_id = \
+                cursor.execute("SELECT status_id FROM status WHERE name='Отредактировано менеджером'").fetchone()[0]
         elif request.form.get('button') == 'cancel':
             status_id = cursor.execute("SELECT status_id FROM status WHERE name='Отменено'").fetchone()[0]
 
         # добавить запись в таблицу обращение и получить id этого обращения
-        query = "INSERT INTO purchase(client_id, status_id, planedate, comment) VALUES('{0}', '{1}', '{2}', '{3}')".format(
-            client_id, status_id, plane_time, 'no comment'
-        )
+        query = "INSERT INTO purchase(client_id, status_id, planedate, comment) VALUES('{0}', '{1}', '{2}', '{3}')"\
+            .format(client_id, status_id, plane_time, 'no comment')
         cursor.execute(query)
 
         purchase_id = cursor.execute("SELECT purchase_id FROM purchase ORDER BY purchase_id DESC LIMIT 1").fetchone()[0]
@@ -145,9 +147,8 @@ def amount():
 
         # внести запись в таблицу Элементы обращения
         query = "INSERT INTO purchase_elem(purchase_id, service_car_id, quantity, planedate, planecost) " \
-                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')".format(
-            purchase_id, service_car_id, cost, plane_time, cost
-        )
+                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')"\
+            .format(purchase_id, service_car_id, cost, plane_time, cost)
         cursor.execute(query)
 
         # save state
