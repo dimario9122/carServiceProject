@@ -213,6 +213,7 @@ def check(number):
         if request.form.get('code') == str(sms_code):
             update_sms_code()
             # здесь будет перенаправление в личный кабинет
+            print('Redirect to client lk')
             return render_template('check.html', message=sms_code, error='OK!')
         else:
             return render_template('check.html', message=sms_code, error='Неверный код!')
@@ -243,18 +244,14 @@ def login():
         '''
         запрос пароля из базы данных
         '''
-        # получение абсолютного пути к файлу базы данных
-        path_to_db_file = os.path.abspath('.')
-        path_to_db_file += '/app/database.db'
-        connect_db = sqlite3.connect(path_to_db_file)
-        cursor = connect_db.cursor()
+        cursor = connect_to_db().cursor()
 
         # получение пароля для текущего логина из формы
         query = "SELECT Password FROM client WHERE Login='{0}'".format(payload['username'])
         cursor.execute(query)
         data_from_db = cursor.fetchone()
 
-        connect_db.close()
+        connect_to_db().close()
         '''
         запрос пароля из базы данных выполнен
         '''
@@ -270,6 +267,7 @@ def login():
 
         # проверка пользовательского пароля и пароля из бд
         if data_from_db[0] == payload['password']:
+            # логин успешен - перенаправление на админ лк
             return redirect(url_for('home'))
         else:
             message = 'Неверный логин или пароль'
@@ -289,18 +287,14 @@ def change_password():
         '''
         запись нового пароля в бд
         '''
-        # получение абсолютного пути к файлу базы данных
-        path_to_db_file = os.path.abspath('.')
-        path_to_db_file += '/app/database.db'
-        connect_db = sqlite3.connect(path_to_db_file)
-        cursor = connect_db.cursor()
+        cursor = connect_to_db().cursor()
 
         # получение пароля для текущего логина из формы
         query = "UPDATE client SET Password='{0}' WHERE Login='{1}'".format(form_passwd, username)
         cursor.execute(query)
-        connect_db.commit()
+        connect_to_db().commit()
 
-        connect_db.close()
+        connect_to_db().close()
         '''
         конец записи нового пароля в бд
         '''
