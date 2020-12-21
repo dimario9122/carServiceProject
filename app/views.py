@@ -105,55 +105,58 @@ def amount():
         about = request.args.get('About')
         phone = request.args.get('phone_number')
 
-        if request.form.get('button') == 'order':
-            # получить id из таблицы Клиент
+        # получить id из таблицы Клиент
+        query = "SELECT client_id FROM client WHERE phone='{0}'".format(phone)
+        client_id = cursor.execute(query).fetchone()
+
+        # если новый клиент
+        if client_id is None:
+            # сохранить в бд
+            query = "INSERT INTO client(FIO, Phone, Login, Password) VALUES ('{0}', '{1}', '{2}', '{3}')".format(
+                "Фамилия Имя Отчество",
+                phone,
+                phone,
+                "здесь должна быть рандомная строка"
+            )
+            cursor.execute(query)
+            # получим id только что добавленного клиента
             query = "SELECT client_id FROM client WHERE phone='{0}'".format(phone)
-            client_id = cursor.execute(query).fetchone()
+            client_id = cursor.execute(query).fetchone()[0]
 
-            # если новый клиент
-            if client_id is None:
-                # сохранить в бд
-                query = "INSERT INTO client(FIO, Phone, Login, Password) VALUES ('{0}', '{1}', '{2}', '{3}')".format(
-                    "Фамилия Имя Отчество",
-                    phone,
-                    phone,
-                    "здесь должна быть рандомная строка"
-                )
-                cursor.execute(query)
-                # получим id только что добавленного клиента
-                query = "SELECT client_id FROM client WHERE phone='{0}'".format(phone)
-                client_id = cursor.execute(query).fetchone()[0]
-
-            # получить id из таблицы Статус
+        # получить id из таблицы Статус
+        status_id = 3 # значение по-умолчанию (Отмена)
+        if request.form.get('button') == 'order':
             status_id = cursor.execute("SELECT status_id FROM status WHERE name='Принято'").fetchone()[0]
+        elif request.form.get('button') == 'order_manager':
+            status_id = cursor.execute("SELECT status_id FROM status WHERE name='Отредактировано менеджером'").fetchone()[0]
+        elif request.form.get('button') == 'cancel':
+            status_id = cursor.execute("SELECT status_id FROM status WHERE name='Отменено'").fetchone()[0]
 
-            # добавить запись в таблицу обращение и получить id этого обращения
-            query = "INSERT INTO purchase(client_id, status_id, planedate, comment) VALUES('{0}', '{1}', '{2}', '{3}')".format(
-                client_id, status_id, plane_time, 'no comment'
-            )
-            cursor.execute(query)
+        # добавить запись в таблицу обращение и получить id этого обращения
+        query = "INSERT INTO purchase(client_id, status_id, planedate, comment) VALUES('{0}', '{1}', '{2}', '{3}')".format(
+            client_id, status_id, plane_time, 'no comment'
+        )
+        cursor.execute(query)
 
-            purchase_id = cursor.execute("SELECT purchase_id FROM purchase ORDER BY purchase_id DESC LIMIT 1").fetchone()[0]
+        purchase_id = cursor.execute("SELECT purchase_id FROM purchase ORDER BY purchase_id DESC LIMIT 1").fetchone()[0]
 
-            # получить id из таблицы Услуга-авто
-            service_car_id = get_cost_plane_date(trademark, model, about)[2]
+        # получить id из таблицы Услуга-авто
+        service_car_id = get_cost_plane_date(trademark, model, about)[2]
 
-            # внести запись в таблицу Элементы обращения
-            query = "INSERT INTO purchase_elem(purchase_id, service_car_id, quantity, planedate, planecost) " \
-                    "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')".format(
-                purchase_id, service_car_id, cost, plane_time, cost
-            )
-            cursor.execute(query)
+        # внести запись в таблицу Элементы обращения
+        query = "INSERT INTO purchase_elem(purchase_id, service_car_id, quantity, planedate, planecost) " \
+                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')".format(
+            purchase_id, service_car_id, cost, plane_time, cost
+        )
+        cursor.execute(query)
 
-            # save state
-            conn.commit()
+        # save state
+        conn.commit()
 
-            return redirect(url_for('check', number=phone))
-        if request.form.get('button') == 'order_manager':
-            print('order_manager')
         if request.form.get('button') == 'cancel':
             # переход на домашнюю страницу
             return redirect(url_for('home'))
+        return redirect(url_for('check', number=phone))
     return render_template('record.html')
 
 
