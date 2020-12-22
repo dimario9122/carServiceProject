@@ -11,7 +11,6 @@
     {{ status }}
     <form action="" method="post">
 	    Ваш номер телефона:
-		
 		<p>
 		
 		    {% if phone_number %}
@@ -59,7 +58,7 @@
             {% endif %}
 			
 				
-		Приблизительное время выполнения работ:		
+		Приблизительное время выполнения работ (в днях):
 		
 		<p>
 		
@@ -69,15 +68,15 @@
 
 		<br>
 		
-		    <button name="button" value="go to check">Оформить заказ</button>
+		    <button name="button" value="order">Оформить заказ</button>
         </p>
 		
 		<p>
-		    <button name="button" value="go to check">Оформить заказ через менеджера</button>
+		    <button name="button" value="order_manager">Оформить заказ через менеджера</button>
         </p>
 		
 		<p>
-		    <button name="button" value="go to home">Отмена</button>
+		    <button name="button" value="cancel">Отмена</button>
         </p>
     </form>
 
