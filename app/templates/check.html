@@ -1,42 +1,59 @@
 {% extends 'base.html' %}
 
-<head>
-    {% block title %}
-    <title>Запись в автосервис</title>
-    {% endblock %}
-</head>
-
-<body>
-{% block content %}
-    {{ status }}
-    <form action="" method="post">
-        <p>{{ message }}</p>
-		
-    Введите код из СМС:
-        <p>
-            <input type="text" name="code" value={{ phone_code }}>
-        </p>
-		
-        <p>{{ error }}</p>
-
-        <!--
-		<p>
-		<button class="content-btn__recording" name="button" value="order">Заказать</button>
-        </p>
-        <p>
-		<button class="content-btn__recording" name="button" value="order by manager">Заказать через менеджера</button>
-        </p>
-		<p>
-		   С вами свяжется менеджер для уточнения заказа
-		</p>
-		-->
-        <p>
-		<button class="content-btn__recording" name="button" value="ok_button">ОК</button>
-        </p>
-    </form>
-
-
-
+{% block title %}
+<title>Запись в автосервис</title>
 {% endblock %}
-</body>
-</html>
+
+{% block btn %}
+<div class="button-wrap">
+    <button class="btnSignIn">Вход</button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrap">
+    <div class="content">
+        <div class="content-header">
+            <h1>Качетсвенный <br>
+                ремонт авто</h1>
+        </div>
+
+        <div class="content-btn">
+            <button class="content-btn__recording">Записаться</button>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block popup %}
+<div class="popup open">
+    <div class="popup_body">
+        <div class="popup_content">
+            {{ status }}
+            <form action="" method="post">
+                <p class="popup-close"></p>
+                <p class="popup_label">{{ message }}</p>
+                <p class="popup_label">Введите код из СМС:</p>
+                <input class="popup-input" type="text" name="code" value={{ phone_code }}>
+                <p class="popup_label">{{ error }}</p>
+                <!--
+                <p>
+                <button class="content-btn__recording" name="button" value="order">Заказать</button>
+                </p>
+                <p>
+                <button class="content-btn__recording" name="button" value="order by manager">Заказать через менеджера</button>
+                </p>
+                <p>
+                   С вами свяжется менеджер для уточнения заказа
+                </p>
+                -->
+                <div  class="btn-wrap">
+                    <button class="popup-button content-btn__recording" name="button" value="ok_button">ОК</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

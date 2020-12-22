@@ -208,7 +208,7 @@ def record(number):
     return render_template('record.html')
 
 
-@app.route('/check/<number>/', methods=['GET', 'POST'])
+@app.route('/check/<number>', methods=['GET', 'POST'])
 def check(number):
     print(number)
     if request.method == 'POST':

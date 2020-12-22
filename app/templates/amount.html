@@ -1,87 +1,74 @@
 {% extends 'base.html' %}
 
-<head>
-    {% block title %}
-    <title>Запись в автосервис</title>
-    {% endblock %}
-</head>
-
-<body>
-{% block content %}
-    {{ status }}
-    <form action="" method="post">
-	    Ваш номер телефона:
-		<p>
-		
-		    {% if phone_number %}
-		<p><input name = "phone_number" value="{{ phone_number }}" readonly></p>
-            {% endif %}
-			
-			<p>
-			
-        Марка Вашего авто:
-		
-		<p>
-		
-		    {% if Trademark %}
-		<p><input name = "Trademark" value="{{ Trademark }}" readonly></p>
-            {% endif %}
-		
-		<p>
-	
-		Модель Вашего авто:
-		
-		<p>
-		
-		    {% if Model %}
-        <p><input name = "Model" value="{{ Model }}" readonly></p>
-            {% endif %}
-		
-		<p>
-		
-		Тип услуги, выбранной Вами:
-		
-		<p>
-		
- 		    {% if About %}
-        <p><input name = "About" value="{{ About }}" readonly></p>
-            {% endif %}
-		
-		<p>
-		
-		Приблизительная стоимость:		
-		
-		<p>
-		
-		    {% if cost %}
-        <p><input name = "cost" value="{{ cost }}" readonly></p>
-            {% endif %}
-			
-				
-		Приблизительное время выполнения работ (в днях):
-		
-		<p>
-		
-		    {% if time %}
-        <p><input name = "time" value="{{ time }}" readonly></input></p>
-            {% endif %}
-
-		<br>
-		
-		    <button name="button" value="order">Оформить заказ</button>
-        </p>
-		
-		<p>
-		    <button name="button" value="order_manager">Оформить заказ через менеджера</button>
-        </p>
-		
-		<p>
-		    <button name="button" value="cancel">Отмена</button>
-        </p>
-    </form>
-
-
-
+{% block title %}
+<title>Запись в автосервис</title>
 {% endblock %}
-</body>
-</html>
+
+{% block btn %}
+<div class="button-wrap">
+	<button class="btnSignIn">Вход</button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrap">
+	<div class="content">
+		<div class="content-header">
+			<h1>Качетсвенный <br>
+				ремонт авто</h1>
+		</div>
+
+		<div class="content-btn">
+			<button class="content-btn__recording">Записаться</button>
+		</div>
+
+
+	</div>
+</div>
+{% endblock %}
+
+{% block popup %}
+<div class="popup open">
+	<div class="popup_body">
+		<div class="popup_content">
+			<p class="popup-close"></p>
+			{{ status }}
+			<form action="" method="post">
+				<p class="popup_label">Ваш номер телефона:</p>
+				{% if phone_number %}
+				<input class="popup-input" name = "phone_number" value="{{ phone_number }}" readonly>
+				{% endif %}
+				<p class="popup_label">Марка Вашего авто:</p>
+				{% if Trademark %}
+				<input class="popup-input"  name = "Trademark" value="{{ Trademark }}" readonly>
+				{% endif %}
+				<p class="popup_label">Модель Вашего авто:</p>
+				{% if Model %}
+				<input class="popup-input"  name = "Model" value="{{ Model }}" readonly>
+				{% endif %}
+				<p class="popup_label">Тип услуги, выбранной Вами:</p>
+				{% if About %}
+				<input class="popup-input"  name = "About" value="{{ About }}" readonly>
+				{% endif %}
+				<p class="popup_label">Приблизительная стоимость:</p>
+				{% if cost %}
+				<input class="popup-input"  name = "cost" value="{{ cost }}" readonly>
+				{% endif %}
+				<p class="popup_label">Приблизительное время выполнения работ (в днях):</p>
+				{% if time %}
+				<input class="popup-input" name = "time" value="{{ time }}" readonly></input>
+				{% endif %}
+				<div class="btn-wrap">
+					<button  class="popup-button" name="button" value="order">Оформить заказ</button>
+				</div>
+				<div class="btn-wrap">
+					<button class="popup-button" name="button" value="order_manager">Оформить заказ через менеджера</button>
+				</div>
+				<div class="btn-wrap">
+					<button class="popup-button" name="button" value="cancel">Отмена</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
