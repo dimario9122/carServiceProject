@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="68c1175a-e4ce-44fe-8305-fea3b36afe81" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/style.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/figma description" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/figma description" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/record.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/record.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
     </list>
@@ -25,7 +31,7 @@
     <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SQUAD-master/SQUAD/frontend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -57,11 +63,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.run" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -79,6 +80,8 @@
       <workItem from="1607069168570" duration="16491000" />
       <workItem from="1607334114805" duration="234000" />
       <workItem from="1607334368174" duration="24000" />
+      <workItem from="1608547130937" duration="1677000" />
+      <workItem from="1608635130790" duration="9568000" />
     </task>
     <servers />
   </component>
@@ -131,8 +134,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606253081269" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/run_py$run.coverage" NAME="run Coverage Results" MODIFIED="1607094459812" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

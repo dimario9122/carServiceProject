@@ -1,47 +1,46 @@
 {% extends 'base.html' %}
 
-<head>
-    {% block title %}
-    <title>Запись в автосервис</title>
-    {% endblock %}
-</head>
+{% block title %}
+<title>Запись в автосервис</title>
+{% endblock %}
 
-<body>
+{% block btn %}
+<div class="button-wrap">
+    <button class="btnSignIn">Вход</button>
+</div>
+{% endblock %}
+
 {% block content %}
+<div class="content-wrap">
+    <div class="content">
+        <div class="content-header">
+            <h1>Качетсвенный <br>
+                ремонт авто</h1>
+        </div>
+
+        <!-- Эта форма добалена Natali для тестов -->
+        <form action="new_record" method="GET">
+            <div class="content-btn">
+                <button class="content-btn__recording">Записаться</button>
+            </div>
+        </form>
+        <!-- Ivan Baturin аттеншен -->
+
+    </div>
+</div>
+{% endblock %}
+
+
+{% block popup %}
     {{ status }}
-    <form action="" method="post">
-	    Введите номер телефона:
-        <p>
-            <input name="phone_number" type="tel" pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$" value="+7">
-        </p>
-        Выберите марку и модель авто:
-        <p>
-		    <select name = "Trademark">
-			{% for i in range(trademark_list | length) %}
-			   <option name={{ trademark_list[i] }}>{{trademark_list[i] }}</option>
-			{% endfor %}
-			</select>
-        </p>
-		
-		Выберите тип услуги:
-        <p>
-		    <select name = "About">
-			{% for i in range(about_list | length) %}
-			   <option name="{{ about_list[i] }}">{{ about_list[i] }}</option>
-			{% endfor %}
-			</select>
+<div class="popup open">
+    <div class="popup_body">
+        <div class="popup_content">
 
-        </p>
-				
-        <p>
-		    <button name="button" value="go to amount">Продолжить</button>
-        </p>
-    </form>
-
+        </div>
+    </div>
+</div>
     {% if password_changed %}
         <p>{{ message }}</p>
     {%  endif %}
-
 {% endblock %}
-</body>
-</html>

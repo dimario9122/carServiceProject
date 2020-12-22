@@ -189,6 +189,23 @@ body {
       outline: none;
     }
   }
+  &-list {
+    display: block;
+    width: 392px;
+    height: 45px;
+    border: 1px solid #F70D0D;
+    border-radius: 20px;
+    padding: 2px 15px;
+    padding-right: 20px;
+    &:hover {
+      cursor: pointer;
+      outline: none;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
   .btn-wrap {
     display: flex;
     justify-content: center;

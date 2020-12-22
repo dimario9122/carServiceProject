@@ -1,15 +1,16 @@
 'use strict'
 
-jQuery(function($){
-    $("#phone").mask("+7 (999) 999-99-99");
-});
+//Ставим прослушивание событий на кнопки на главной странице
+document.querySelector('.btnSignIn').addEventListener('click', wrapOpenPopup('clickClient'))
+document.querySelector('.content-btn__recording').addEventListener('click', wrapOpenPopup('NewRecord'))
 
-document.querySelector('.btnSignIn').addEventListener('click', openPopup)
 
+//исправляем баг появления всплывающего окна
 window.onload =  function() {
     document.querySelector('.popup').style.display = 'block'
 }
 
+//Прослушивание событий внутри всплывающего окна
 if (document.querySelector('.popup').classList.contains('open'))
 {
     if (document.querySelector('.popup_tabs')) {
@@ -25,9 +26,11 @@ if (document.querySelector('.popup').classList.contains('open'))
     })
 }
 
+//Перерисовка всплывающего окна
 function resetPopup(str) {
     return function () {
-        if (str === 'clickManager') {
+        if (str === 'clickManager') //если кликнули на менеджера
+        {
             let popup = document.querySelector('.popup_content')
             popup.innerHTML = ''
             popup.insertAdjacentHTML('beforeend', `   
@@ -51,7 +54,7 @@ function resetPopup(str) {
             document.querySelector('.popup-close').addEventListener('click', closePopup)
             document.querySelector('.tab-client').addEventListener('click', resetPopup('clickClient'))
         }
-        if (str === 'clickClient')
+        if (str === 'clickClient') //если кликнули на клиента
         {
             let popup = document.querySelector('.popup_content')
             popup.innerHTML = ''
@@ -69,22 +72,65 @@ function resetPopup(str) {
                 </div>
             </form>
             `)
+            jQuery(function($){
+                $("#phone").mask("+7 (999) 999-99-99");
+            });
             document.querySelector('.tab-manager').classList.remove('active')
             document.querySelector('.tab-client').classList.add('active')
             document.querySelector('.popup-close').addEventListener('click', closePopup)
             document.querySelector('.tab-manager').addEventListener('click', resetPopup('clickManager'))
         }
+        if (str === 'NewRecord') //если кликнули записаться
+        {
+            let popup = document.querySelector('.popup_content')
+            popup.innerHTML = ''
+            popup.insertAdjacentHTML('beforeend', `   
+                   <form action="new_record" method="POST">
+                        <p class="popup-close"></p>
+                        <p class="popup_label">Введите номер телефона:</p>
+                        <input class="popup-input" name="phone_number" id="phone" type="tel"  placeholder="+7 (___) ___-__-__">
+                        <p class="popup_label">Выберете марку авто:</p>
+                        <select class="popup-list marks">                                    
+                        </select>
+                        <p class="popup_label">Выберете тип услуги:</p>
+                        <select class="popup-list services">
+                        </select>
+                        <div class="btn-wrap">
+                            <button class="button popup-button" name="button" value="go to amount">Продолжить</button>
+                        </div>
+                   </form>`)
+            jQuery(function($){
+                $("#phone").mask("+7 (999) 999-99-99");
+            });
+            document.querySelector('.popup-close').addEventListener('click', closePopup)
+            fetch('http://localhost:5000/new_record')
+                .then(response => response.json())
+                .then(result =>  {
+                    result.trademark_list.forEach(mark => {
+                        document.querySelector('.marks').insertAdjacentHTML('beforeend', `
+                            <option value="${mark}">${mark}</option>
+                        `)
+                    })
+                    result.about_list.forEach(service => {
+                        document.querySelector('.services').insertAdjacentHTML('beforeend', `
+                            <option value="${service}">${service}</option>
+                        `)
+                    })
+                })
+        }
     }
 }
 
-function openPopup() {
-    document.querySelector('.popup').classList.add('open')
-    resetPopup('clickClient')()
-    document.querySelector('.popup').addEventListener('click', function(e) {
-        if (!e.target.closest('.popup_content') && !e.target.closest('.popup_tabs')) {
-            closePopup()
-        }
-    })
+function wrapOpenPopup(str) {
+    return function openPopup() {
+        document.querySelector('.popup').classList.add('open')
+        resetPopup(str)()
+        document.querySelector('.popup').addEventListener('click', function(e) {
+            if (!e.target.closest('.popup_content') && !e.target.closest('.popup_tabs')) {
+                closePopup()
+            }
+        })
+    }
 }
 
 function closePopup() {

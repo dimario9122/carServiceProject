@@ -3,7 +3,9 @@ import sqlite3
 import os
 import random
 from app import app
+from flask_cors import CORS
 
+CORS(app) ##Установка CORS политики
 
 @app.route('/')
 def index():
@@ -46,7 +48,7 @@ def new_record():
         '''
         запрос данных из базы данных выполнен
         '''
-        return render_template('record.html', trademark_list=trademark_list, about_list=about_list)
+        return jsonify(trademark_list=trademark_list, about_list=about_list)
     if request.method == 'POST':
         if request.form.get('button') == 'go to amount':
             trademark_and_model = request.form.get('Trademark')
