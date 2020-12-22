@@ -90,10 +90,10 @@ function resetPopup(str) {
                         <p class="popup_label">Введите номер телефона:</p>
                         <input class="popup-input" name="phone_number" id="phone" type="tel"  placeholder="+7 (___) ___-__-__">
                         <p class="popup_label">Выберете марку авто:</p>
-                        <select class="popup-list marks">                                    
+                        <select class="popup-list marks" name="Trademark">                                    
                         </select>
                         <p class="popup_label">Выберете тип услуги:</p>
-                        <select class="popup-list services">
+                        <select class="popup-list services" name="About">
                         </select>
                         <div class="btn-wrap">
                             <button class="button popup-button" name="button" value="go to amount">Продолжить</button>
