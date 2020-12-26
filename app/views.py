@@ -176,8 +176,7 @@ def check(number):
         if request.form.get('code') == str(sms_code):
             update_sms_code()
             # здесь будет перенаправление в личный кабинет
-            print('Redirect to client lk')
-            return render_template('check.html', message=sms_code, error='OK!')
+            return redirect(url_for('client_lk', number=number))
         else:
             return render_template('check.html', message=sms_code, error='Неверный код!')
     elif request.method == 'GET':
@@ -231,7 +230,7 @@ def login():
         # проверка пользовательского пароля и пароля из бд
         if data_from_db[0] == payload['password']:
             # логин успешен - перенаправление на админ лк
-            return redirect(url_for('home'))
+            return redirect(url_for('admin_lk'))
         else:
             message = 'Неверный логин или пароль'
             return render_template('login_manager.html', message=message)
@@ -276,3 +275,15 @@ def login_client():
         number = request.form.get('phone_number')
         return redirect(url_for('check', number=number))
     return render_template('home.html')
+
+
+# LK CLIENT
+@app.route('/client_lk/<number>')
+def client_lk(number):
+    return render_template('client_lk.html', phone=number)
+
+
+# LK MANAGER
+@app.route('/admin_lk/')
+def admin_lk():
+    return render_template('admin_lk.html')
