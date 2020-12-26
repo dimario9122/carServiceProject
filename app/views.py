@@ -6,7 +6,8 @@ from app import app
 from flask_cors import CORS
 import re
 
-CORS(app) ##Установка CORS политики
+CORS(app)  ##Установка CORS политики
+
 
 @app.route('/')
 def index():
@@ -144,7 +145,7 @@ def amount():
             status_id = cursor.execute("SELECT status_id FROM status WHERE name='Отменено'").fetchone()[0]
 
         # добавить запись в таблицу обращение и получить id этого обращения
-        query = "INSERT INTO purchase(client_id, status_id, planedate, comment) VALUES('{0}', '{1}', '{2}', '{3}')"\
+        query = "INSERT INTO purchase(client_id, status_id, planedate, comment) VALUES('{0}', '{1}', '{2}', '{3}')" \
             .format(client_id, status_id, plane_time, 'no comment')
         cursor.execute(query)
 
@@ -155,7 +156,7 @@ def amount():
 
         # внести запись в таблицу Элементы обращения
         query = "INSERT INTO purchase_elem(purchase_id, service_car_id, quantity, planedate, planecost) " \
-                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')"\
+                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')" \
             .format(purchase_id, service_car_id, cost, plane_time, cost)
         cursor.execute(query)
 
@@ -171,7 +172,6 @@ def amount():
 
 @app.route('/check/<number>', methods=['GET', 'POST'])
 def check(number):
-    print(number)
     if request.method == 'POST':
         if request.form.get('code') == str(sms_code):
             update_sms_code()
@@ -273,6 +273,9 @@ def change_password():
 def login_client():
     if request.method == 'POST':
         number = request.form.get('phone_number')
+
+        # удалить + и - () из записи номера телефона
+        number = re.sub('[+\-() ]', '', number)
         return redirect(url_for('check', number=number))
     return render_template('home.html')
 
@@ -280,12 +283,53 @@ def login_client():
 # LK CLIENT
 @app.route('/client_lk/<number>')
 def client_lk(number):
-    return render_template('client_lk.html', phone=number)
+    order_list = get_client_orders(number)
+    return render_template('client_lk.html', phone=number, order_list=order_list)
 
 
+# возвращает все заказы клиента
 def get_client_orders(number):
-    # получить все заказы клиента
-    pass
+    orders = []
+
+    conn = connect_to_db()
+    cursor = conn.cursor()
+
+    # получили id клиента по номеру телефона
+    client_id = cursor.execute(
+        "SELECT client_id FROM client WHERE Phone='{0}'".format(number)
+    ).fetchone()[0]
+
+    # для каждого обращения - найдем информацию
+    purchases = cursor.execute(
+        "SELECT purchase_id, status_id FROM purchase WHERE Client_id='{0}'".format(client_id)
+    ).fetchall()
+
+    for p in purchases:
+        p_id = p[0]
+        status_id = p[1]
+
+        # получим service_car_id, amount, plane_date
+        service_car_id, amount, plane_date = cursor.execute(
+            "SELECT service_car_id, quantity, planedate FROM purchase_elem WHERE Purchase_id='{0}'".format(p_id)
+        ).fetchone()
+
+        # получим модель + марка + услуга
+        trademark, model, service_about = cursor.execute(
+            "SELECT car.trademark, car.model, service.about FROM car, service "
+            "Where car_id = (SELECT car_id FROM service_car WHERE service_car_id='{0}') "
+            "AND service.Service_id='{1}';".format(service_car_id, status_id)
+        ).fetchone()
+
+        # собираем информацию о заказе
+        order = {
+            'trademark': trademark,
+            'model': model,
+            'service': service_about,
+            'amount': amount,
+            'plane_date': plane_date
+        }
+        orders.append(order)
+    return orders
 
 
 # LK MANAGER
@@ -293,6 +337,7 @@ def get_client_orders(number):
 def admin_lk():
     top_auto = get_dict_top_auto()
     return render_template('admin_lk.html', top_auto=top_auto)
+
 
 '''
 get_dict_top_auto возвращает словарь вида:
@@ -303,6 +348,8 @@ get_dict_top_auto возвращает словарь вида:
     }
     марка : кол-во заказов
 '''
+
+
 def get_dict_top_auto():
     top_auto = dict()
     conn = connect_to_db()

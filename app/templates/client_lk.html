@@ -6,4 +6,15 @@
 
 {% block content %}
 Номер телефона клиента: {{phone}}
+
+Список заказов
+{% for order in order_list %}}
+    {% for key1, item1 in order.items() %}
+       <p>
+           {{item1}}
+       </p>
+    {% endfor %}
+    ===================================
+{% endfor %}
+
 {% endblock %}
