@@ -6,4 +6,13 @@
 
 {% block content %}
 Админ
+<br>
+ТОП АВТОМОБИЛЕЙ:
+{% for trademark, amount in top_auto.items() %}
+      <br>
+      Марка: {{trademark}}
+      Кол-во: {{amount}}
+      <br>
+{% endfor %}
+
 {% endblock %}

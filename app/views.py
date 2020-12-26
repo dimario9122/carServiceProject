@@ -283,7 +283,48 @@ def client_lk(number):
     return render_template('client_lk.html', phone=number)
 
 
+def get_client_orders(number):
+    # получить все заказы клиента
+    pass
+
+
 # LK MANAGER
 @app.route('/admin_lk/')
 def admin_lk():
-    return render_template('admin_lk.html')
+    top_auto = get_dict_top_auto()
+    return render_template('admin_lk.html', top_auto=top_auto)
+
+'''
+get_dict_top_auto возвращает словарь вида:
+    {
+        Audi: 6
+        Mers: 3
+        Nissan: 2
+    }
+    марка : кол-во заказов
+'''
+def get_dict_top_auto():
+    top_auto = dict()
+    conn = connect_to_db()
+    cursor = conn.cursor()
+
+    # получим 5 групп нибольшего кол-ва записей
+    # tuple (service_car_id, amount_record)
+    raw_amount = cursor.execute(
+        "SELECT service_car_id, COUNT(*) as amount_record FROM purchase_elem DESC GROUP BY service_car_id LIMIT 5;"
+    ).fetchall()
+    for pair in raw_amount:
+        service_car_id = pair[0]
+        amount = pair[1]
+
+        # получим название марки по service_car_id
+        trademark = cursor.execute(
+            "SELECT trademark FROM car Where car_id = (SELECT car_id FROM service_car WHERE service_car_id='{0}');".format(
+                service_car_id
+            )
+        ).fetchone()[0]
+        if top_auto.get(trademark) is None:
+            top_auto[trademark] = amount
+        else:
+            top_auto[trademark] += amount
+    return top_auto
