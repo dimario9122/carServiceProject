@@ -4,6 +4,7 @@ import os
 import random
 from app import app
 from flask_cors import CORS
+import re
 
 CORS(app) ##Установка CORS политики
 
@@ -109,6 +110,9 @@ def amount():
         about = request.args.get('About')
         phone = request.args.get('phone_number')
 
+        # удалить + и - () из записи номера телефона
+        phone = re.sub('[+\-() ]', '', phone)
+
         # получить id из таблицы Клиент
         query = "SELECT client_id FROM client WHERE phone='{0}'".format(phone)
         client_id = cursor.execute(query).fetchone()
@@ -126,6 +130,8 @@ def amount():
             # получим id только что добавленного клиента
             query = "SELECT client_id FROM client WHERE phone='{0}'".format(phone)
             client_id = cursor.execute(query).fetchone()[0]
+        else:
+            client_id = client_id[0]
 
         # получить id из таблицы Статус
         status_id = 3  # значение по-умолчанию (Отмена)
@@ -160,51 +166,6 @@ def amount():
             # переход на домашнюю страницу
             return redirect(url_for('home'))
         return redirect(url_for('check', number=phone))
-    return render_template('record.html')
-
-
-# функция не используется
-@app.route('/record/<number>', methods=['GET', 'POST'])
-def record(number):
-    if request.method == 'GET':
-        '''
-            запрос данных из базы данных
-            '''
-        # получение абсолютного пути к файлу базы данных
-        path_to_db_file = os.path.abspath('.')
-        path_to_db_file += '/app/database.db'
-        connect_db = sqlite3.connect(path_to_db_file)
-        cursor = connect_db.cursor()
-        # запрос всех марок авто
-        query = "SELECT Trademark FROM car GROUP BY Trademark"
-        cursor.execute(query)
-        data_from_db = cursor.fetchall()
-        trademark_list = [x[0] for x in data_from_db]
-        # есть ли смысл в этом месте???
-        payload = {
-            'trademark_name': trademark_list[0]
-        }
-        # запрос моделей определенной марки
-        query = "SELECT Model FROM car WHERE Trademark='{0}'".format(payload['trademark_name'])
-
-        cursor.execute(query)
-        data_from_db = cursor.fetchall()
-        model_list = [x[0] for x in data_from_db]
-        # запрос списка услуг
-        query = "SELECT About FROM service"
-        cursor.execute(query)
-        data_from_db = cursor.fetchall()
-        about_list = [x[0] for x in data_from_db]
-
-        connect_db.close()
-        '''
-        запрос пароля из базы данных выполнен
-        '''
-        return render_template('record.html', message=request.args.get('Trademark'),
-                               trademark_list=trademark_list, model_list=model_list, about_list=about_list)
-    if request.method == 'POST':
-        if request.form.get('button') == 'go to check':
-            return redirect(url_for('check'))
     return render_template('record.html')
 
 
