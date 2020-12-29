@@ -39,6 +39,30 @@
   margin-right: 10px;
 }
 
+.order {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 2px solid black;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.order-content {
+  padding: 25px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-content__header {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.order-content__text {
+  font-size: 18px;
+  font-weight: 400;
+}
+
 .btnSignOut {
   margin-top: 20px;
   margin-right: 15px;

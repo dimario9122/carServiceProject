@@ -1,20 +1,57 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>[Клиент] Личный кабинет</title>
+    <link rel="stylesheet" href="../static/css/normailize.css">
+    <link rel="stylesheet" href="../static/css/style_lk.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="column">
+        <div class="column-content active" id="1">
+            <img src="../static/image/1_icon_client.png" alt="">
+        </div>
+        <div class="column-content" id="2">
+            <img src="../static/image/2_icon_client.png" alt="">
+        </div>
+        <div class="column-content" id="3">
+            <img src="../static/image/3_icon_client.png" alt="">
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Мои заказы</h1>
+            <button class="btnSignOut">Выход</button>
+        </div>
+        {% for order in order_list %}
+        <div class="order">
+            <div class="order-content">
+                <div class="order-content__header">Марка авто</div>
+                <div class="order-content__text">{{order['trademark']}}</div>
+            </div>
+            <div class="order-content">
+                <div class="order-content__header">Модель авто</div>
+                <div class="order-content__text">{{order['model']}}</div>
+            </div>
+            <div class="order-content">
+                <div class="order-content__header">Тип услуги</div>
+                <div class="order-content__text">{{order['service']}}</div>
+            </div>
+            <div class="order-content">
+                <div class="order-content__header">Стоимость</div>
+                <div class="order-content__text">{{order['amount']}}</div>
+            </div>
+            <div class="order-content">
+                <div class="order-content__header">Сроки</div>
+                <div class="order-content__text">{{order['plane_date']}} дней</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
-{% block title %}
-<title>[Клиент] Личный кабинет</title>
-{% endblock %}
-
-{% block content %}
-Номер телефона клиента: {{phone}}
-
-Список заказов
-{% for order in order_list %}}
-    {% for key1, item1 in order.items() %}
-       <p>
-           {{item1}}
-       </p>
-    {% endfor %}
-    ===================================
-{% endfor %}
-
-{% endblock %}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="../static/js/jquery.maskedinput.min.js"></script>
+<script src="../static/js/lk_client.js"></script>
+</body>
+</html>
