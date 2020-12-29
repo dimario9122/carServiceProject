@@ -1,18 +1,50 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>[Админ] Личный кабинет</title>
+      <link rel="stylesheet" href="../static/css/normailize.css">
+      <link rel="stylesheet" href="../static/css/style_lk.css">
+</head>
+<body>
+      <div class="wrap">
+            <div class="column">
+                  <div class="column-content active" id="1">
+                        <img src="../static/image/1_icon_admin.png" alt="">
+                  </div>
+                  <div class="column-content" id="2">
+                        <img src="../static/image/2_icon_admin.png" alt="">
+                  </div>
+                  <div class="column-content" id="3">
+                        <img src="../static/image/3_icon_admin.png" alt="">
+                  </div>
+            </div>
+            <div class="container">
+                  <div class="header">
+                        <h1>Топ</h1>
+                        <button class="btnSignOut">Выход</button>
+                  </div>
+                  <div class="graphics">
+                        <div class="graphics-element">
+                              <h2>Топ автомобилей</h2>
+                              <canvas width="570" height="550" class="canvas" id="canvas">
 
-{% block title %}
-<title>[Админ] Личный кабинет</title>
-{% endblock %}
+                              </canvas>
+                              <div class="graphics-info" style="display: none">
+                                    {% for trademark, amount in top_auto.items() %}
+                                    <div class="mark">{{trademark}}</div>
+                                    <div class="count">{{amount}}</div>
+                                    {% endfor %}
+                              </div>
 
-{% block content %}
-Админ
-<br>
-ТОП АВТОМОБИЛЕЙ:
-{% for trademark, amount in top_auto.items() %}
-      <br>
-      Марка: {{trademark}}
-      Кол-во: {{amount}}
-      <br>
-{% endfor %}
+                        </div>
 
-{% endblock %}
+                  </div>
+
+            </div>
+      </div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="../static/js/jquery.maskedinput.min.js"></script>
+<script src="../static/js/lk_admin.js"></script>
+</body>
+</html>
