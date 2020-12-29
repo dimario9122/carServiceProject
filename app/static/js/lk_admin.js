@@ -72,29 +72,7 @@ columnContent.forEach(item => item.addEventListener('click', updatePage(item.get
 function updatePage (id) {
     return function () {
         if (id === '1') {
-            document.querySelector('.container').innerHTML = ''
-            document.querySelector('.container').insertAdjacentHTML('beforeend', `
-            <div class="header">
-                        <h1>Топ</h1>
-                        <button class="btnSignOut">Выход</button>
-                  </div>
-                  <div class="graphics">
-                        <div class="graphics-element">
-                              <h2>Топ автомобилей</h2>
-                              <canvas width="570" height="550" class="canvas" id="canvas">
-
-                              </canvas>
-                              <div class="graphics-info" style="display: none">
-                                    {% for trademark, amount in top_auto.items() %}
-                                    <div class="mark">{{trademark}}</div>
-                                    <div class="count">{{amount}}</div>
-                                    {% endfor %}
-                              </div>
-
-                        </div>
-
-                  </div>
-            `)
+            document.location.href = 'http://localhost:5000/admin_lk/'
         }
         if (id === '2') {
             document.querySelector('.container').innerHTML = ''
